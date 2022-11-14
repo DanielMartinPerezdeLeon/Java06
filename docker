@@ -1,0 +1,41 @@
+
+docker rm -f sql06
+docker volume prune
+
+docker volume create mysql-db-data
+docker run -d -p 33060:3306 --name sql06 -e MYSQL_ROOT_PASSWORD=admin --mount src=mysql-db-data,dst=/var/lib/mysql mysql
+
+docker exec -it sql06  mysql -p
+
+
+	create database db06;
+	use db06;
+
+
+	create table persona (dni varchar(9) primary key, nombre varchar(20), apellido varchar(40), fecha_nac date, foto varchar(80), total_multas dec, apalabrado varchar(9) );
+
+	create table casa (codigo numeric(4) primary key, localidad varchar(40), propietario varchar(9) );
+	
+	create table localidad (nombre varchar(40) primary key, codigo_posta numeric(5), provincia varchar(40), pais varchar(40) );
+
+	 create table coche (matricula varchar(7) primary key, marca varchar(20), modelo varchar(20), propietario varchar(9), fecha_matriculacion date );
+
+	create table multa (codigo numeric(4) primary key, coche varchar(7), fecha date, coste numeric );
+
+	
+	alter table casa add constraint FKcasa_locNombre foreign key (localidad) references localidad (nombre) on delete cascade;
+	
+	alter table casa add constraint FKcasa_dniPersona foreign key (propietario) references persona (dni) on delete cascade;
+	
+	alter table persona add constraint FKpersona_dniPersona foreign key (apalabrado) references persona (dni) on delete cascade;
+
+	alter table coche add constraint FKcoche_dniPersona foreign key (propietario) references persona (dni) on delete cascade;
+
+	alter table multa add constraint FKmulta_matCoche foreign key (coche) references coche (matricula) on delete cascade;
+
+
+	insert into persona values ('1111111A', 'Antonio', 'Castillo', sysdate(), null, 0, null);
+
+	
+
+
