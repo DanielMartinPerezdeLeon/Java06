@@ -7,7 +7,7 @@ docker run -d -p 33060:3306 --name sql06 -e MYSQL_ROOT_PASSWORD=admin --mount sr
 
 docker exec -it sql06  mysql -p
 
-
+----------------------------------------------------------------------------
 	create database db06;
 	use db06;
 
@@ -33,8 +33,14 @@ docker exec -it sql06  mysql -p
 
 	alter table multa add constraint FKmulta_matCoche foreign key (coche) references coche (matricula) on delete cascade;
 
+--------------------------------------------------------------------------------------
+	insert into persona values ('11111111A', 'Antonio', 'Castillo', sysdate(), null, 0, null);
 
-	insert into persona values ('1111111A', 'Antonio', 'Castillo', sysdate(), null, 0, null);
+	insert into coche values('123ABC', 'seat', 'ibiza', '11111111A', sysdate());
+
+	insert into multa values (1111, '123ABC', sysdate(), 100);
+	insert into multa values (1112, '123ABC', sysdate(), 560.50);
+ 	insert into multa values (1113, '123ABC', sysdate(), 420.50);
 
 	
 
