@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelo.Coche;
 import Modelo.Multa;
 import Modelo.Persona;
 import java.sql.*;
@@ -117,6 +118,43 @@ public class Select {
         } catch (SQLException ex) {
             Logger.getLogger(Select.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
+        }
+    }
+    
+    public ArrayList listaCoches(){
+        try {
+            ArrayList <Coche> resultado = new <Coche> ArrayList();
+            String comando = "select * from coche";
+            
+            conn = ConexionBD.getConexion().getConn();
+            st = conn.prepareStatement(comando);
+            
+
+            
+            ResultSet rs = st.executeQuery();
+            
+            while(rs.next()){
+                
+                Date aux = rs.getDate("fecha_matriculacion");
+                GregorianCalendar fecha = new GregorianCalendar();
+                fecha.setTime(aux);
+                
+                resultado.add(new Coche(rs.getString("matricula"),
+                                        rs.getString("marca"),
+                                        rs.getString("modelo"),
+                                        rs.getString("propietario"),
+                                        fecha));
+                
+                
+            }
+            
+            System.out.println("Coches obtenidos correctamente");
+            return resultado;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Select.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex);
+            return null;
         }
     }
 

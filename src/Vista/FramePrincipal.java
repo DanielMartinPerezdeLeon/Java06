@@ -25,6 +25,8 @@ public class FramePrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         botoniniciarsesion = new javax.swing.JMenuItem();
@@ -35,6 +37,12 @@ public class FramePrincipal extends javax.swing.JFrame {
         botondatosusuario = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         botonaltapersona = new javax.swing.JMenuItem();
+        sf = new javax.swing.JMenu();
+        botonbajapersona = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,6 +106,18 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        sf.setText("Baja");
+
+        botonbajapersona.setText("Coche");
+        botonbajapersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonbajapersonaActionPerformed(evt);
+            }
+        });
+        sf.add(botonbajapersona);
+
+        jMenuBar1.add(sf);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,6 +165,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         PanelAltaPersona panel = new PanelAltaPersona();
         cambiarPanel(panel);
     }//GEN-LAST:event_botonaltapersonaActionPerformed
+
+    private void botonbajapersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonbajapersonaActionPerformed
+        PanelBajaCoche panel = new PanelBajaCoche();
+        cambiarPanel(panel);
+    }//GEN-LAST:event_botonbajapersonaActionPerformed
 
   
     
@@ -207,6 +232,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem botonaltapersona;
+    private javax.swing.JMenuItem botonbajapersona;
     private javax.swing.JMenuItem botondatosusuario;
     private javax.swing.JMenuItem botondesconectarse;
     private javax.swing.JMenuItem botoniniciarsesion;
@@ -216,5 +242,8 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenu sf;
     // End of variables declaration//GEN-END:variables
 }
