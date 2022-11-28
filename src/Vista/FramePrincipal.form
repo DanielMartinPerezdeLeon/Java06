@@ -88,12 +88,27 @@
             <Property name="text" type="java.lang.String" value="Baja"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="botonbajapersona">
+            <MenuItem class="javax.swing.JMenuItem" name="botonbajacoche">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Coche"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonbajapersonaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonbajacocheActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Modificar"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="btnmodificarcasa">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Datos Casa"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnmodificarcasaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

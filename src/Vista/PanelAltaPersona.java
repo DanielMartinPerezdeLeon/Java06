@@ -6,7 +6,23 @@
 package Vista;
 
 import Modelo.ConsultasSQL;
-
+import com.aeat.valida.Validador;
+import java.io.File;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import Controlador.Error;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+        
 /**
  *
  * @author alumno
@@ -39,11 +55,12 @@ public class PanelAltaPersona extends javax.swing.JPanel {
         fielddni = new javax.swing.JTextField();
         fieldnombre = new javax.swing.JTextField();
         fieldapellido = new javax.swing.JTextField();
-        fieldfecha = new javax.swing.JTextField();
         fieldfoto = new javax.swing.JTextField();
         fieldapalabrado = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        datepicker = new org.jdatepicker.JDatePicker();
+        btnFoto = new javax.swing.JButton();
 
         jLabel6.setText("Apalabrado:");
 
@@ -70,46 +87,59 @@ public class PanelAltaPersona extends javax.swing.JPanel {
             }
         });
 
+        btnFoto.setText("Elegir Foto");
+        btnFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFotoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
+                        .addGap(67, 67, 67)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
                         .addGap(27, 27, 27)
-                        .addComponent(fielddni, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                        .addComponent(fielddni))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
+                        .addGap(143, 143, 143)
                         .addComponent(fieldnombre))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(27, 27, 27))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel6))
-                                .addGap(32, 32, 32)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(68, 68, 68)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel3)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(43, 43, 43)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel6))))
+                                .addGap(27, 27, 27))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(fieldapellido)
-                            .addComponent(fieldfecha)
-                            .addComponent(fieldfoto)
                             .addComponent(fieldapalabrado)
+                            .addComponent(datepicker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addComponent(jButton1)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(fieldfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnFoto)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -127,15 +157,19 @@ public class PanelAltaPersona extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(fieldapellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(fieldfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(datepicker, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(fieldfoto, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(fieldfoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFoto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(fieldapalabrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -143,7 +177,7 @@ public class PanelAltaPersona extends javax.swing.JPanel {
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -153,24 +187,84 @@ public class PanelAltaPersona extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String dni = fielddni.getText();
-        String nombre = fieldnombre.getText();
+        
+        Validador validador = new Validador(); //VAlidador dni
+        
+        if(validador.checkNif(dni)>0){
+            String nombre = fieldnombre.getText();
         String apellido = fieldapellido.getText();
         String foto = fieldfoto.getText();
-        String fecha = fieldfecha.getText();
+        
+        
         String apalabrado= fieldapalabrado.getText();
+        
+        
+        GregorianCalendar date =  (GregorianCalendar) datepicker.getModel().getValue();
+
+                
+        String fecha= (date.get(Calendar.YEAR)+"-"+date.get(Calendar.MONTH)+"-"+date.get(Calendar.DAY_OF_MONTH));
+        
+        
+        
+        if(apalabrado.equals("")){
+            apalabrado="null";
+        }
+        
+      
         
         ConsultasSQL.consulta.nuevaPersona(dni, nombre, apellido, fecha, foto, apalabrado);
         
         System.out.println("Persona insertada");
         
+        }else{
+            Error.getError().saltaError(14);
+        }
+        
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFotoActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        
+        FileNameExtensionFilter imgFilter = new FileNameExtensionFilter("JPG Images", "jpg");
+        fileChooser.setFileFilter(imgFilter);
+        
+        int result = fileChooser.showOpenDialog(this);
+        
+        if(result != JFileChooser.CANCEL_OPTION){
+            
+            
+            try {
+                
+                
+                File filename = fileChooser.getSelectedFile();
+                
+                
+                fieldfoto.setText(filename.getName());
+                
+                
+                Path copia = Paths.get("src/fotos/"+fieldfoto.getText());
+                Path original = filename.toPath();
+                
+                Files.copy(original, copia, StandardCopyOption.REPLACE_EXISTING);
+                
+          
+                
+            } catch (IOException ex) {
+                Logger.getLogger(PanelAltaPersona.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnFotoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFoto;
+    private org.jdatepicker.JDatePicker datepicker;
     private javax.swing.JTextField fieldapalabrado;
     private javax.swing.JTextField fieldapellido;
     private javax.swing.JTextField fielddni;
-    private javax.swing.JTextField fieldfecha;
     private javax.swing.JTextField fieldfoto;
     private javax.swing.JTextField fieldnombre;
     private javax.swing.JButton jButton1;

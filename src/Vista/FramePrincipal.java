@@ -1,25 +1,23 @@
-
 package Vista;
 
 import Modelo.ConsultasSQL;
+import Controlador.Error;
 import javax.swing.JPanel;
-
 
 //Accede y muestra las distintas opciones del programa
 public class FramePrincipal extends javax.swing.JFrame {
 
-    public boolean sesion =false;   //Nos indica si hemos iniciado sesion
+    public boolean sesion = false;   //Nos indica si hemos iniciado sesion
     public static FramePrincipal fprincipal;
-    
+
     public FramePrincipal() {
         super("Base de Datos Multas"); //Nombre de la ventana
         initComponents();
-        
+
         visibilidadBotones();   //dejo botones enabled o disabled
-        
+
     }
 
-    
     //VISTA
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -38,7 +36,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         botonaltapersona = new javax.swing.JMenuItem();
         sf = new javax.swing.JMenu();
-        botonbajapersona = new javax.swing.JMenuItem();
+        botonbajacoche = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        btnmodificarcasa = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -108,15 +108,27 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         sf.setText("Baja");
 
-        botonbajapersona.setText("Coche");
-        botonbajapersona.addActionListener(new java.awt.event.ActionListener() {
+        botonbajacoche.setText("Coche");
+        botonbajacoche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonbajapersonaActionPerformed(evt);
+                botonbajacocheActionPerformed(evt);
             }
         });
-        sf.add(botonbajapersona);
+        sf.add(botonbajacoche);
 
         jMenuBar1.add(sf);
+
+        jMenu4.setText("Modificar");
+
+        btnmodificarcasa.setText("Datos Casa");
+        btnmodificarcasa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmodificarcasaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(btnmodificarcasa);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -142,12 +154,12 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void botondesconectarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botondesconectarseActionPerformed
         ConsultasSQL.consulta.desconectarseBD(); //Llama a la consulta para desconectarse de la bd
         System.out.println("Desconectado"); //Indica que se ha desconectado correctamente
-        sesion=false;   //cambia sesion
+        sesion = false;   //cambia sesion
         visibilidadBotones();   //Cambiara los enabled de los botones
     }//GEN-LAST:event_botondesconectarseActionPerformed
 
     private void botonmultasindividualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonmultasindividualActionPerformed
-        PanelMultasIndividual panel= new PanelMultasIndividual();
+        PanelMultasIndividual panel = new PanelMultasIndividual();
         cambiarPanel(panel);
     }//GEN-LAST:event_botonmultasindividualActionPerformed
 
@@ -166,13 +178,16 @@ public class FramePrincipal extends javax.swing.JFrame {
         cambiarPanel(panel);
     }//GEN-LAST:event_botonaltapersonaActionPerformed
 
-    private void botonbajapersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonbajapersonaActionPerformed
+    private void botonbajacocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonbajacocheActionPerformed
         PanelBajaCoche panel = new PanelBajaCoche();
         cambiarPanel(panel);
-    }//GEN-LAST:event_botonbajapersonaActionPerformed
+    }//GEN-LAST:event_botonbajacocheActionPerformed
 
-  
-    
+    private void btnmodificarcasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarcasaActionPerformed
+        PanelModificarCasa panel = new PanelModificarCasa();
+        cambiarPanel(panel);
+    }//GEN-LAST:event_btnmodificarcasaActionPerformed
+
     //MAIN
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -188,17 +203,16 @@ public class FramePrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+           
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+           
+                    }
         //</editor-fold>
 
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -207,40 +221,40 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
     }
-    
-    
-    public void cambiarPanel(javax.swing.JPanel panel){
+
+    public void cambiarPanel(javax.swing.JPanel panel) {
         System.out.println("Cambiando panel");    //Avisa que se está cambiando el panel
         this.setContentPane(panel); //Cambia el panel
         pack();
-        
+
     }
-    
-    
-    
+
     //METODOS
-    public void visibilidadBotones(){   //Pone los botones enabled o disables dependiendo de como esté sesion
+    public void visibilidadBotones() {   //Pone los botones enabled o disables dependiendo de como esté sesion
         botoniniciarsesion.setEnabled(!sesion);
         botondesconectarse.setEnabled(sesion);
         botonmultasindividual.setEnabled(sesion);
         botonmultasgeneral.setEnabled(sesion);
         botondatosusuario.setEnabled(sesion);
         botonaltapersona.setEnabled(sesion);
+        botonbajacoche.setEnabled(sesion);
+        btnmodificarcasa.setEnabled(sesion);
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem botonaltapersona;
-    private javax.swing.JMenuItem botonbajapersona;
+    private javax.swing.JMenuItem botonbajacoche;
     private javax.swing.JMenuItem botondatosusuario;
     private javax.swing.JMenuItem botondesconectarse;
     private javax.swing.JMenuItem botoniniciarsesion;
     private javax.swing.JMenuItem botonmultasgeneral;
     private javax.swing.JMenuItem botonmultasindividual;
+    private javax.swing.JMenuItem btnmodificarcasa;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

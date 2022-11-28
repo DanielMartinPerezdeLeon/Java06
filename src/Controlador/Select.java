@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelo.Casa;
 import Modelo.Coche;
 import Modelo.Multa;
 import Modelo.Persona;
@@ -53,7 +54,7 @@ public class Select {
             
 
         } catch (SQLException ex) {
-            Logger.getLogger(Select.class.getName()).log(Level.SEVERE, null, ex);
+            Error.getError().saltaError(6);
             return null;
         }
     }
@@ -90,8 +91,7 @@ public class Select {
             return resultado;
 
         } catch (SQLException ex) {
-            Logger.getLogger(Select.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println(ex);
+            Error.getError().saltaError(7);
             return null;
         }
     }
@@ -116,7 +116,7 @@ public class Select {
             return res;
             
         } catch (SQLException ex) {
-            Logger.getLogger(Select.class.getName()).log(Level.SEVERE, null, ex);
+            Error.getError().saltaError(8);
             return -1;
         }
     }
@@ -152,11 +152,44 @@ public class Select {
             return resultado;
 
         } catch (SQLException ex) {
-            Logger.getLogger(Select.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println(ex);
+            Error.getError().saltaError(9);
             return null;
         }
     }
+    
+    
+    public Casa casa(String dni) {
+        try {
+
+            String comando = "select * from casa where propietario = ?";
+
+            conn = ConexionBD.getConexion().getConn();
+            st = conn.prepareStatement(comando);
+
+            st.setString(1, dni);
+
+            ResultSet rs = st.executeQuery();
+
+            if(rs.next()){
+       
+                
+            return new Casa(rs.getInt("codigo"),
+                        rs.getString("localidad"),
+                        rs.getString("propietario"),
+                        rs.getString("direccion"));
+            }else{
+                return null;
+            }
+            
+            
+
+        } catch (SQLException ex) {
+            Error.getError().saltaError(10);
+            return null;
+        }
+    }
+    
+    
 
     public static Select getResultado() {
         return rs;

@@ -37,8 +37,13 @@ public class PanelUsuario extends javax.swing.JPanel {
         
         float totalmultas=ConsultasSQL.consulta.totalMultas(Persona.getUsuario().getDni());
         fieldmultas.setText(Float.toString(totalmultas));
-      
-        foto.setIcon(new ImageIcon("src/fotos/"+Persona.getUsuario().getFoto()+".jpg"));
+        
+        if(Persona.getUsuario().getFoto().startsWith("/")){
+            foto.setIcon(new ImageIcon(Persona.getUsuario().getFoto()));
+        }else{
+            foto.setIcon(new ImageIcon("src/fotos/"+Persona.getUsuario().getFoto()));
+        }
+        
 
     }
 

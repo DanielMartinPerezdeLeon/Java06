@@ -21,9 +21,9 @@ public class ConexionBD {
             Class.forName("com.mysql.cj.jdbc.Driver");
             this.conn = DriverManager.getConnection("jdbc:mysql://localhost:33060/db06", "root", "admin");
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            Error.getError().saltaError(1);
         } catch (SQLException ex) {
-            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            Error.getError().saltaError(2);
         }
     }
 
@@ -36,7 +36,7 @@ public class ConexionBD {
             this.conn.close();
            
         } catch (SQLException ex) {
-            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+           Error.getError().saltaError(3);
         }
     }
 

@@ -15,39 +15,38 @@ import java.util.logging.Logger;
  *
  * @author alumno
  */
-public class Delete {
-    
-    private static Delete rs = new Delete();
+public class Update {
+
+    private static Update rs = new Update();
 
     Connection conn = null;
     PreparedStatement st = null;
 
-    public Delete() {
-        
-    }
-    
-    public void borrarCoche(String matricula){
-        try {
-            String comando = "delete from coche where matricula=?";
-            
+    public Update() {
 
+    }
+
+    public void modificarCasa(int codigo, String direccion) {
+        try {
+            String comando = "update casa "
+                    + "set direccion=?"
+                    + " where codigo=?";
             
             this.conn = ConexionBD.getConexion().getConn();
+            System.out.println(conn);
             this.st = this.conn.prepareStatement(comando);
             
-            st.setString(1, matricula);
+            st.setString(1, direccion);
+            st.setInt(2, codigo);   
             
+
             st.executeUpdate();
         } catch (SQLException ex) {
-
-            Error.getError().saltaError(4);
+            Error.getError().saltaError(11);
         }
     }
 
-    public static Delete getResultado() {
+    public static Update getResultado() {
         return rs;
     }
-    
-    
-    
 }

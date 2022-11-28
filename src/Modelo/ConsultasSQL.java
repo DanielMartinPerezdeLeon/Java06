@@ -4,6 +4,7 @@ import Controlador.ConexionBD;
 import Controlador.Delete;
 import Controlador.Insert;
 import Controlador.Select;
+import Controlador.Update;
 import java.util.ArrayList;
 
 
@@ -42,6 +43,14 @@ public class ConsultasSQL {
     public void eliminarCoche(String matricula){
         Delete.getResultado().borrarCoche(matricula);
         
+    }
+    
+    public Casa buscarCasa(String dni){
+        return Select.getResultado().casa(dni);
+    }
+    
+    public void modificarCasa(int codigo, String direccion){
+        Update.getResultado().modificarCasa(codigo, direccion);
     }
 
     public ConsultasSQL getConsulta() {

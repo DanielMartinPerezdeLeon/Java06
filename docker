@@ -1,3 +1,9 @@
+docker rm -f sql06
+docker run -d -p 33060:3306 --name sql06 -e MYSQL_ROOT_PASSWORD=admin --mount src=mysql-db-data,dst=/var/lib/mysql mysql
+docker exec -it sql06  mysql -p
+
+use db06
+-----------------------------------------------------------------------
 
 docker rm -f sql06
 docker volume prune
@@ -37,10 +43,18 @@ docker exec -it sql06  mysql -p
 	insert into persona values ('11111111A', 'Antonio', 'Castillo', sysdate(), null, 0, null);
 
 	insert into coche values('123ABC', 'seat', 'ibiza', '11111111A', sysdate());
+	insert into coche values ('431ART','Seat','Ibiza', '11111112B', sysdate());
+
 
 	insert into multa values (1111, '123ABC', sysdate(), 100);
 	insert into multa values (1112, '123ABC', sysdate(), 560.50);
  	insert into multa values (1113, '123ABC', sysdate(), 420.50);
+
+	insert into localidad values ('Espartinas', 41808, 'Sevilla', 'Espana');
+
+	insert into casa values (1111, 'Espartinas', '11111111A', 'C/asfasf n/6');
+
+	
 
 	
 
